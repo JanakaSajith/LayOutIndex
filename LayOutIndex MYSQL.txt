@@ -1,0 +1,242 @@
+Task #3: Database Querying
+Table 01
+
+//create a database--------
+
+mysql> CREATE DATABASE layoutindex;
+Query OK, 1 row affected (0.03 sec)
+
+//show the created database------
+
+mysql> USE layoutindex;
+Database changed
+
+//create table Contacts
+
+CREATE TABLE Contacts (
+    ->     id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     firstName VARCHAR(100),
+    ->     lastName VARCHAR(100),
+    ->     email VARCHAR(100),
+    ->     phone VARCHAR(15)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+//Assign values into the table-------
+
+INSERT INTO Contacts (firstName, lastName, email, phone) VALUES
+    -> ('Aaron', 'Foster', 'aaron.foster@gmail.com', NULL),
+    -> ('Bob', 'Garrett', NULL, '60123456790'),
+    -> ('Charles', 'Hoskinson', 'charles.hoskinson@domain.com', '60123456791'),
+    -> ('Darren', 'Irving', 'darren_irving90@test.com', NULL),
+    -> ('Emily', 'Jokovich', 'emily.j@test.com', '60123456793');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+//verify the data availability------
+
+ SELECT * FROM Contacts;
++----+-----------+-----------+------------------------------+-------------+
+| id | firstName | lastName  | email                        | phone       |
++----+-----------+-----------+------------------------------+-------------+
+|  1 | Aaron     | Foster    | aaron.foster@gmail.com       | NULL        |
+|  2 | Bob       | Garrett   | NULL                         | 60123456790 |
+|  3 | Charles   | Hoskinson | charles.hoskinson@domain.com | 60123456791 |
+|  4 | Darren    | Irving    | darren_irving90@test.com     | NULL        |
+|  5 | Emily     | Jokovich  | emily.j@test.com             | 60123456793 |
++----+-----------+-----------+------------------------------+-------------+
+5 rows in set (0.00 sec)
+
+
+//Get all values that has values in phone number and emails-------
+
+SELECT * FROM Contacts
+    -> WHERE email IS NOT NULL AND phone IS NOT NULL;
++----+-----------+-----------+------------------------------+-------------+
+| id | firstName | lastName  | email                        | phone       |
++----+-----------+-----------+------------------------------+-------------+
+|  3 | Charles   | Hoskinson | charles.hoskinson@domain.com | 60123456791 |
+|  5 | Emily     | Jokovich  | emily.j@test.com             | 60123456793 |
++----+-----------+-----------+------------------------------+-------------+
+2 rows in set (0.00 sec)
+
+
+Table 02
+
+//create table Users------
+
+CREATE TABLE Users(
+    -> id INT AUTO_INCREMENT PRIMARY KEY,
+    -> groupid VARCHAR(30),
+    -> firstname VARCHAR(100),
+    -> lastname VARCHAR(100),
+    -> email VARCHAR(100)
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+//Assign Values to the Table-----
+
+mysql> INSERT INTO users (groupid, firstname, lastname, email) VALUES
+    -> ('group_02', 'Amelia', 'Kelly', 'amelia_kelly@test.com'),
+    -> ('group_01', 'Beth', 'La’ Salle', 'beth_123@company.io'),
+    -> ('group_02', 'Cecilia', 'Montgomery', 'cecilia90@gmail.com'),
+    -> ('group_03', 'Dorothy', 'Nikolai', 'dorothy.n@domain.com'),
+    -> ('group_03', 'Emily', 'O’ Shea', 'emily_flowers@yahoo.com'),
+    -> ('group_01', 'Fiona', 'Peterson', 'fiona.p.123@domain.com'),
+    -> ('group_02', 'Gertrude', 'Quinn', 'g.quinn@outlook.com'),
+    -> ('group_04', 'Heather', 'Rose', 'h.amber@company.net'),
+    -> ('group_01', 'Iona', 'Smith', 'iona@test.com'),
+    -> ('group_04', 'Jasmine', 'Tatcher', 'jasmine.t@domain.io');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+
+//Validate the Input data of the table users------
+
+mysql> SELECT * FROM Users;
++----+----------+-----------+-------------+-------------------------+
+| id | groupid  | firstname | lastname    | email                   |
++----+----------+-----------+-------------+-------------------------+
+|  1 | group_02 | Amelia    | Kelly       | amelia_kelly@test.com   |
+|  2 | group_01 | Beth      | La’ Salle   | beth_123@company.io     |
+|  3 | group_02 | Cecilia   | Montgomery  | cecilia90@gmail.com     |
+|  4 | group_03 | Dorothy   | Nikolai     | dorothy.n@domain.com    |
+|  5 | group_03 | Emily     | O’ Shea     | emily_flowers@yahoo.com |
+|  6 | group_01 | Fiona     | Peterson    | fiona.p.123@domain.com  |
+|  7 | group_02 | Gertrude  | Quinn       | g.quinn@outlook.com     |
+|  8 | group_04 | Heather   | Rose        | h.amber@company.net     |
+|  9 | group_01 | Iona      | Smith       | iona@test.com           |
+| 10 | group_04 | Jasmine   | Tatcher     | jasmine.t@domain.io     |
++----+----------+-----------+-------------+-------------------------+
+10 rows in set (0.00 sec)
+
+//Get the total count according to groupid
+
+mysql> SELECT groupid,COUNT(*) AS Total
+    -> FROM Users
+    -> GROUP BY groupid;
++----------+-------+
+| groupid  | Total |
++----------+-------+
+| group_02 |     3 |
+| group_01 |     3 |
+| group_03 |     2 |
+| group_04 |     2 |
++----------+-------+
+4 rows in set (0.01 sec)
+
+
+Table 03/04
+
+
+//Create a table as Customers------
+
+mysql> CREATE TABLE Customers(
+    -> id INT AUTO_INCREMENT PRIMARY KEY,
+    -> customerName VARCHAR(100),
+    -> phone VARCHAR(20)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+
+//Assign values to the customer table-------
+
+mysql> INSERT INTO customers (customerName, phone) VALUES
+    -> ('Anakin Funster', '55512345678'),
+    -> ('Barry White', '55512345679'),
+    -> ('Charles Kindred', '55512345680'),
+    -> ('Julio Sanchez', '55512345681'),
+    -> ('Morty O’Neill', '55512345682');
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+//valdate the assigned data is visible in the customers table------
+
+mysql> SELECT * FROM Customers;
++----+-----------------+-------------+
+| id | customerName    | phone       |
++----+-----------------+-------------+
+|  1 | Anakin Funster  | 55512345678 |
+|  2 | Barry White     | 55512345679 |
+|  3 | Charles Kindred | 55512345680 |
+|  4 | Julio Sanchez   | 55512345681 |
+|  5 | Morty O’Neill   | 55512345682 |
++----+-----------------+-------------+
+5 rows in set (0.00 sec)
+
+//Create Table Orders
+
+mysql> CREATE TABLE Orders(
+    -> orderId INT PRIMARY KEY,
+    -> customerId INT,
+    -> orderDate DATE
+    -> );
+Query OK, 0 rows affected (0.04 sec)
+
+
+//Assign the values to table Orders------
+
+mysql> INSERT INTO orders (orderId, customerId, orderDate) VALUES
+    -> (1001, 3, '1998-04-10'),
+    -> (1002, 2, '2002-10-23'),
+    -> (1003, 4, '1981-05-24'),
+    -> (1004, 4, '1996-09-20'),
+    -> (1005, 1, '1990-11-26'),
+    -> (1006, 2, '2022-01-01');
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+//validate the assigned data of the table orders----
+
+mysql> SELECT * FROM Orders;
++---------+------------+------------+
+| orderId | customerId | orderDate  |
++---------+------------+------------+
+|    1001 |          3 | 1998-04-10 |
+|    1002 |          2 | 2002-10-23 |
+|    1003 |          4 | 1981-05-24 |
+|    1004 |          4 | 1996-09-20 |
+|    1005 |          1 | 1990-11-26 |
+|    1006 |          2 | 2022-01-01 |
++---------+------------+------------+
+6 rows in set (0.00 sec)
+
+
+//LEFT Join for get CustomerName.orderId and orderDate into another table
+
+
+mysql> SELECT c.customerName, o.orderId, o.orderDate
+    -> FROM Customers c
+    -> LEFT JOIN orders o ON c.id = o.customerId;
++-----------------+---------+------------+
+| customerName    | orderId | orderDate  |
++-----------------+---------+------------+
+| Anakin Funster  |    1005 | 1990-11-26 |
+| Barry White     |    1006 | 2022-01-01 |
+| Barry White     |    1002 | 2002-10-23 |
+| Charles Kindred |    1001 | 1998-04-10 |
+| Julio Sanchez   |    1004 | 1996-09-20 |
+| Julio Sanchez   |    1003 | 1981-05-24 |
+| Morty O’Neill   |    NULL | NULL       |
++-----------------+---------+------------+
+7 rows in set (0.01 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
